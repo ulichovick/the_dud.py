@@ -1,9 +1,5 @@
-import base64
 import os
 import sqlite3
-from cryptography.fernet import Fernet
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 class Usuario:
     def __init__ (self,nombre_usuario,password):
