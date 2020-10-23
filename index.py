@@ -12,17 +12,7 @@ while pwwd != pwwd_conf:
     pwwd = input("Ingrese la contraseña: \n")
     pwwd_conf = input("Ingrese la contraseña de nuevo: \n")
 
-pwwd = str.encode(pwwd)
-salt = os.urandom(16)
-kdf = PBKDF2HMAC(
-    algorithm=hashes.SHA256(),
-    length=32,
-    salt=salt,
-    iterations=100000,
-)
-key = base64.urlsafe_b64encode(kdf.derive(pwwd))
-f=Fernet(key)
-test = Usuario(usu,key)
+test = Usuario(usu,pwwd)
 test.crear_usuario()
 print("todo ok: ")
 
