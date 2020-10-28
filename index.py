@@ -3,7 +3,7 @@ import os
 from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
-from nuevo_usuario import Usuario
+from usuarios import Usuario
 usu = input("Ingrese el nombre de usuario: \n")
 pwwd = input("Ingrese la contraseña: \n")
 pwwd_conf = input("Ingrese la contraseña de nuevo: \n")

@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from nuevo_usuario import Usuario
+from usuarios import Usuario
 
 class Aplicacion():
     def __init__(self):
