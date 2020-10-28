@@ -7,9 +7,11 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 class Cifrado:
     def __init__(self,pwwd):
         self.pwwd = pwwd
-
-    def cifrar_contraseñas(self):
         self.pwwd = str.encode(self.pwwd)
+    def cifrar_contraseñas(self):
+        """
+        cifra las contraseñas con una sal aleatoria
+        """
         self.salt = os.urandom(16)
         self.kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
@@ -19,8 +21,26 @@ class Cifrado:
         )
         self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
         return (self.key,self.salt)
+    
+    def verificar_cifrado(self,sal):
+        self.salt = sal
+        """
+        cifra el usuario y contraseña con la sal suministrada por el usuario
+        PD: insegura, a futuro modificarla
+        """
+        self.kdf = PBKDF2HMAC(
+            algorithm=hashes.SHA256(),
+            length=32,
+            salt=self.salt,
+            iterations=100000,
+        )
+        self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
+        return (self.key)
 
     def cifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd):
+        """
+        cifra data según las credenciales del usuario 
+        """
         self.f = Fernet(self.key)
         self.nom_cuenta = nom_cuenta
         self.login = login
@@ -37,6 +57,9 @@ class Cifrado:
         return(self.token1,self.token2,self.token3,self.token4)
 
     def descifrado_suave(self):
+        """
+        descifra data según las credenciales del usuario 
+        """
         self.nom_cuenta_des = self.f.decrypt(self.token1)
         self.login_des = self.f.decrypt(self.token2)
         self.url_des = self.f.decrypt(self.token3)

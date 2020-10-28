@@ -22,10 +22,25 @@ class Usuario:
             return self.resultado
         finally:
             self.conexion.close()
-    def funcname(self, parameter_list):
+    def verificar_usuario(self):
         """
         verifica si el usuario está registrado en la base de datos
         en caso que encuentre el usuario abrirá la sesión
         en caso contrario lanzara error y permanecera en la pantalla de inicio de sesión.
         """
-        pass
+        try:
+            self.query = self.conexion.execute("select nombre_usuario,contraseña,sal from usuarios where nombre_usuario = ?",(self.nombre_usuario,))
+            self.resultado = self.query.fetchone()
+            print(self.resultado)
+            self.sal = self.resultado[2]
+            self.key = Cifrado(self.password).verificar_cifrado(self.sal)
+            if self.key == self.resultado[1]:
+                return "el usuario si existe!"
+            else:
+                return "el usuario no existe!"
+
+        except Exception as err:
+            self.resultado = err
+            return self.resultado
+        finally:
+            self.conexion.close()
