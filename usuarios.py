@@ -31,13 +31,15 @@ class Usuario:
         try:
             self.query = self.conexion.execute("select nombre_usuario,contraseña,sal from usuarios where nombre_usuario = ?",(self.nombre_usuario,))
             self.resultado = self.query.fetchone()
-            print(self.resultado)
-            self.sal = self.resultado[2]
-            self.key = Cifrado(self.password).verificar_cifrado(self.sal)
-            if self.key == self.resultado[1]:
-                return "el usuario si existe!"
+            if self.resultado is not None:
+                self.sal = self.resultado[2]
+                self.key = Cifrado(self.password).verificar_cifrado(self.sal)
             else:
                 return "el usuario no existe!"
+            if self.key == self.resultado[1]:
+                return "el usuario si existe y las contraseñas coinciden!"
+            else:
+                return "el usuario si existe pero las contraseñas no coinciden!"
 
         except Exception as err:
             self.resultado = err
