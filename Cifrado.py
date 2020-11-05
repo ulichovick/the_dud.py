@@ -57,10 +57,16 @@ class Cifrado:
         self.password = self.f.encrypt(self.cuenta_pwwd)
         return(self.sitio,self.login,self.url,self.password)
 
-    def descifrado_suave(self):
+    def descifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd,key):
         """
         descifra data según las credenciales del usuario 
         """
+        self.key = key
+        self.f = Fernet(self.key)
+        self.sitio = nom_cuenta
+        self.login = login
+        self.url = url
+        self.password = cuenta_pwwd
         self.nom_cuenta_des = self.f.decrypt(self.sitio)
         self.login_des = self.f.decrypt(self.login)
         self.url_des = self.f.decrypt(self.url)

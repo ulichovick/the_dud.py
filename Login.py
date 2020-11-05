@@ -65,12 +65,13 @@ class Aplicacion():
             self.mensaje_exito = messagebox.showwarning(title="resultado", message="¡las contraseñas no coinciden!")
     def verifica_usuario(self):
         self.passwd = str(self.passwd_login.get())
+        self.passwd = self.passwd
         self.usuario = str(self.usuario_login.get())
         self.resultado = Usuario(self.usuario,self.passwd)
         self.resultado = self.resultado.verificar_usuario()
         if self.resultado is not None:
             self.ventana_login.destroy()
-            self.cuentas = index(self.resultado)
+            self.cuentas = index(self.resultado,self.passwd)
         else:
             self.mensaje = messagebox.showinfo(title="resultado", message="¡error, el usuario no existe o la contraseña es incorrecta!")
 app1=Aplicacion()
