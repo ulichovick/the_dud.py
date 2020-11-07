@@ -4,10 +4,12 @@ from cryptography.fernet import Fernet
 from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
+
 class Cifrado:
-    def __init__(self,pwwd):
+    def __init__(self, pwwd):
         self.pwwd = pwwd
         self.pwwd = str.encode(self.pwwd)
+
     def cifrar_contraseñas(self):
         """
         cifra las contraseñas con una sal aleatoria
@@ -20,14 +22,15 @@ class Cifrado:
             iterations=100000,
         )
         self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
-        return (self.key,self.salt)
-    
-    def verificar_cifrado(self,sal):
-        self.salt = sal
+        return (self.key,
+                self.salt)
+
+    def verificar_cifrado(self, sal):
         """
         cifra el usuario y contraseña con la sal suministrada por el usuario
         PD: insegura, a futuro modificarla
         """
+        self.salt = sal
         self.kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=32,
@@ -37,9 +40,9 @@ class Cifrado:
         self.key = base64.urlsafe_b64encode(self.kdf.derive(self.pwwd))
         return (self.key)
 
-    def cifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd,key):
+    def cifrado_suave(self, nom_cuenta, login, url, cuenta_pwwd, key):
         """
-        cifra data según las credenciales del usuario 
+        cifra data según las credenciales del usuario
         """
         self.key = key
         self.f = Fernet(self.key)
@@ -55,11 +58,14 @@ class Cifrado:
         self.login = self.f.encrypt(self.login)
         self.url = self.f.encrypt(self.url)
         self.password = self.f.encrypt(self.cuenta_pwwd)
-        return(self.sitio,self.login,self.url,self.password)
+        return (self.sitio,
+                self.login,
+                self.url,
+                self.password)
 
-    def descifrado_suave(self,nom_cuenta,login,url,cuenta_pwwd,key):
+    def descifrado_suave(self, nom_cuenta, login, url, cuenta_pwwd, key):
         """
-        descifra data según las credenciales del usuario 
+        descifra data según las credenciales del usuario
         """
         self.key = key
         self.f = Fernet(self.key)
@@ -75,4 +81,7 @@ class Cifrado:
         self.login_des = self.login_des.decode()
         self.url_des = self.url_des.decode()
         self.cuenta_pwwd_des = self.cuenta_pwwd_des.decode()
-        return(self.nom_cuenta_des,self.login_des,self.url_des,self.cuenta_pwwd_des)
+        return (self.nom_cuenta_des,
+                self.login_des,
+                self.url_des,
+                self.cuenta_pwwd_des)
