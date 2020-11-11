@@ -51,7 +51,7 @@ class index:
                                                                 cifrado_pass))
         self.mensaje_exito = messagebox.showinfo(
                                                 title="resultado",
-                                                message=self.data_cuenta)
+                                                message=len(self.data_cuenta))
 
     def dibuja_creacuentas(self):
         self.cuenta = Creacioncuentas(
