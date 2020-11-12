@@ -29,6 +29,7 @@ class Aplicacion():
         self.entrada_passwd = ttk.Entry(
                                     self.pagina1,
                                     width=25,
+                                    show="*",
                                     textvariable=self.passwd_login)
         self.entrada_passwd.grid(column=1, row=1)
         self.boton1 = ttk.Button(
@@ -63,6 +64,7 @@ class Aplicacion():
         self.entrada_passwd = ttk.Entry(
                                     self.pagina2,
                                     width=25,
+                                    show="*",
                                     textvariable=self.passwd)
         self.entrada_passwd.grid(column=1, row=1)
         self.label3 = ttk.Label(
@@ -73,6 +75,7 @@ class Aplicacion():
         self.entrada_confirma_passwd = ttk.Entry(
                                             self.pagina2,
                                             width=25,
+                                            show="*",
                                             textvariable=self.confirma_passwd)
         self.entrada_confirma_passwd.grid(column=1, row=2)
         self.boton1 = ttk.Button(
