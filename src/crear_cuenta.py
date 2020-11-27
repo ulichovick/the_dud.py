@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from Cuentas import cuenta
+from .Cuentas import cuenta
 
 class Creacioncuentas:
     def __init__(
@@ -17,6 +17,7 @@ class Creacioncuentas:
         self.ventana_crear_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_crear_cuentas.title("Registrar nueva cuenta")
         self.ventana_crear_cuentas.geometry("300x300")
+        self.ventana_crear_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
         self.nombre_sitio = ttk.Label(
                                     self.ventana_crear_cuentas,
                                     text="Nombre sitio:")

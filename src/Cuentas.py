@@ -1,5 +1,5 @@
 import sqlite3
-from Cifrado import Cifrado
+from .Cifrado import Cifrado
 
 
 class cuenta:
@@ -72,7 +72,6 @@ class cuenta:
         modifica la cuenta
         """
         self.id_cuenta = id_cuenta
-
         try:
             self.query = self.conexion.execute(
                                             """select Nombre_cuenta,Login,URL,contraseña,sal,ID_cuenta from cuentas 
@@ -102,5 +101,25 @@ class cuenta:
         except Exception as err:
             self.resultado = err
             return str(self.resultado)
+        finally:
+            self.conexion.close()
+    def borrar_cuentas(self,id_cuenta,id_usuario):
+        """
+        borra la cuenta seleccionada
+        """
+        self.id_cuenta = id_cuenta
+        self.id_usuario = id_usuario
+        try:
+            self.query = self.conexion.execute(
+                                            """delete from cuentas
+                                            where ID_usuario = ?
+                                            AND ID_cuenta = ?""",
+                                            (self.id_usuario,self.id_cuenta))
+            self.conexion.commit()
+            return True
+        except Exception as err:
+            self.resultado = err
+            print(self.resultado)
+            return False
         finally:
             self.conexion.close()

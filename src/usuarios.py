@@ -1,5 +1,5 @@
 import sqlite3
-from Cifrado import Cifrado
+from .Cifrado import Cifrado
 
 
 class Usuario:

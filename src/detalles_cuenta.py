@@ -1,7 +1,7 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 from tkinter import messagebox
-from Cuentas import cuenta
+from .Cuentas import cuenta
 import webbrowser
 
 class Detallescuentas:
@@ -18,6 +18,7 @@ class Detallescuentas:
         self.ventana_detalles_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_detalles_cuentas.title("Detalles " + data_cuenta[0])
         self.ventana_detalles_cuentas.geometry("300x300")
+        self.ventana_detalles_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
         self.nombre_sitio = ttk.Label(
                                     self.ventana_detalles_cuentas,
                                     text="Nombre sitio:")
@@ -65,10 +66,12 @@ class Detallescuentas:
                                             width=3,
                                             command=self.mostrar_contras)
         self.boton_mostrar_pwwd.grid(column=2, row=3)
+        self.logo = PhotoImage(file = r"D:\Programacion\Python\fuck.exe\icons\copy.png")
         self.copiar = ttk.Button(
                                             self.ventana_detalles_cuentas,
                                             text=" ",
                                             width=3,
+                                            image=self.logo,
                                             command=self.copiar_clipb)
         self.copiar.grid(column=3, row=3)
         self.boton_borrar = ttk.Button(
@@ -148,10 +151,27 @@ class Detallescuentas:
         """
         borra la cuenta actual de la base de datos
         """
-        pass
+        self.id_cuenta = self.data_cuenta[4]
+        self.id_usuario = self.data_cuenta[5]
+        self.cuenta_nueva = cuenta().borrar_cuentas(
+                                                    self.id_cuenta,
+                                                    self.id_usuario)
+        if self.cuenta_nueva == True:
+            self.mensaje_exito = messagebox.showinfo(
+                                        title="resultado",
+                                        message="¡Se ha borrado la cuenta! ",
+                                        parent=self.ventana_detalles_cuentas)
+            self.ventana_detalles_cuentas.destroy()
+        else:
+            self.mensaje_exito = messagebox.showwarning(
+                                                    title="resultado",
+                                                    message="¡Error al borrar la cuenta!",
+                                                    parent=self.ventana_detalles_cuentas)
     
     def abrir_navegador(self):
         """
         abre el link en navegador
         """
         webbrowser.open(str(self.registra_url.get()))
+        self.ventana_detalles_cuentas.clipboard_clear()
+        self.ventana_detalles_cuentas.clipboard_append(str(self.registra_pwwd.get()))

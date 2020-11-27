@@ -1,10 +1,10 @@
 from os import name
-from detalles_cuenta import Detallescuentas
+from .detalles_cuenta import Detallescuentas
 import tkinter as tk
 from tkinter import ttk
-from Cuentas import cuenta
-from Cifrado import Cifrado
-from crear_cuenta import Creacioncuentas
+from .Cuentas import cuenta
+from .Cifrado import Cifrado
+from .crear_cuenta import Creacioncuentas
 
 class index:
     """
@@ -26,6 +26,7 @@ class index:
         self.titulo = "Cuentas de " + self.nombre_usuario
         self.ventana_cuentas.title(self.titulo)
         self.ventana_cuentas.geometry("250x250")
+        self.ventana_cuentas.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
         self.frame_ops = ttk.Frame()
         self.frame_ops.grid(column=0, row=0)
         self.labelframe_operaciones = ttk.LabelFrame(self.frame_ops,text="Operaciones:")
@@ -63,7 +64,6 @@ class index:
                                                                 row[6],
                                                                 cifrado_pass))
         self.info_cuentas = self.data_cuenta
-        print(self.info_cuentas)
         self.i = 1
         self.j = 0
         self.k = 0

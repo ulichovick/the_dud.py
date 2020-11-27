@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
-from usuarios import Usuario
-from vista_cuentas import index
+from src.usuarios import Usuario
+from src.vista_cuentas import index
 
 
 class Aplicacion():
@@ -10,6 +10,7 @@ class Aplicacion():
         self.ventana_login = tk.Tk()
         self.ventana_login.title("Password manager")
         self.ventana_login.geometry("300x300")
+        self.ventana_login.iconbitmap(r"D:\Programacion\Python\fuck.exe\icons\key.ico")
         self.cuaderno1 = ttk.Notebook(self.ventana_login)
 
         # login de usuario
