@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 from tkinter import messagebox
 from .Cuentas import cuenta
 import os
@@ -13,13 +13,19 @@ class Creacioncuentas:
         ventana para crear cuentas nuevas
         """
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\key.ico"
         self.id_usuario = id_usuario
         self.master_password = password
         self.ventana_crear_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_crear_cuentas.title("Registrar nueva cuenta")
         self.ventana_crear_cuentas.geometry("300x300")
-        self.ventana_crear_cuentas.iconbitmap(self.dir)
+        self.sep = os.sep
+        if os.name == "nt":
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.ico" 
+            self.ventana_crear_cuentas.iconbitmap(self.dir)
+        else:
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.png"
+            self.img = PhotoImage(file=self.dir)
+            self.ventana_crear_cuentas.wm_iconphoto(True, self.img)
         self.nombre_sitio = ttk.Label(
                                     self.ventana_crear_cuentas,
                                     text="Nombre sitio:")

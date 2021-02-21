@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 from tkinter import messagebox
 from src.usuarios import Usuario
 from src.vista_cuentas import index
@@ -8,11 +8,17 @@ import os
 class Aplicacion():
     def __init__(self):
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\key.ico" 
         self.ventana_login = tk.Tk()
         self.ventana_login.title("Password manager")
         self.ventana_login.geometry("300x300")
-        self.ventana_login.iconbitmap(self.dir)
+        self.sep = os.sep
+        if os.name == "nt":
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.ico" 
+            self.ventana_login.iconbitmap(self.dir)
+        else:
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.png" 
+            self.img = PhotoImage(file=self.dir)
+            self.ventana_login.wm_iconphoto(True, self.img)
         self.cuaderno1 = ttk.Notebook(self.ventana_login)
 
         # login de usuario

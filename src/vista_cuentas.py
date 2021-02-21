@@ -1,7 +1,7 @@
 import os
 from .detalles_cuenta import Detallescuentas
 import tkinter as tk
-from tkinter import ttk
+from tkinter import PhotoImage, ttk
 from .Cuentas import cuenta
 from .Cifrado import Cifrado
 from .crear_cuenta import Creacioncuentas
@@ -17,7 +17,6 @@ class index:
                 password,
                 nom_usu):
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\key.ico"
         print(self.dir)
         self.id_usuario = id_usuario
         self.master_password = password
@@ -29,7 +28,14 @@ class index:
         self.titulo = "Cuentas: " + self.nombre_usuario
         self.ventana_cuentas.title(self.titulo)
         self.ventana_cuentas.geometry("250x250")
-        self.ventana_cuentas.iconbitmap(self.dir)
+        self.sep = os.sep
+        if os.name == "nt":
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.ico" 
+            self.ventana_cuentas.iconbitmap(self.dir)
+        else:
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.png"
+            self.img = PhotoImage(file=self.dir)
+            self.ventana_cuentas.wm_iconphoto(True, self.img)
         self.frame_ops = ttk.Frame()
         self.frame_ops.grid(column=0, row=0)
         self.labelframe_operaciones = ttk.LabelFrame(self.frame_ops,text="Operaciones:")

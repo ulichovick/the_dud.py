@@ -14,13 +14,19 @@ class Detallescuentas:
         ventana para crear cuentas nuevas
         """
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\key.ico"
         self.data_cuenta = data_cuenta
         self.master_password = master_password
         self.ventana_detalles_cuentas = tk.Toplevel(ventanaprincipal)
         self.ventana_detalles_cuentas.title("Detalles " + data_cuenta[0])
         self.ventana_detalles_cuentas.geometry("300x300")
-        self.ventana_detalles_cuentas.iconbitmap(self.dir)
+        self.sep = os.sep
+        if os.name == "nt":
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.ico" 
+            self.ventana_detalles_cuentas.iconbitmap(self.dir)
+        else:
+            self.dir = self.dir + self.sep + "icons" + self.sep +  "key.png" 
+            self.img = PhotoImage(file=self.dir)
+            self.ventana_detalles_cuentas.wm_iconphoto(True, self.img)
         self.nombre_sitio = ttk.Label(
                                     self.ventana_detalles_cuentas,
                                     text="Nombre sitio:")
@@ -63,7 +69,7 @@ class Detallescuentas:
                                     textvariable=self.registra_pwwd)
         self.entrada_pwwd.grid(column=1, row=3)
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\show.png"
+        self.dir = self.dir + self.sep+"icons"+self.sep+"show.png"
         self.logo_pwwd = PhotoImage(file = self.dir)
         self.boton_mostrar_pwwd = ttk.Button(
                                             self.ventana_detalles_cuentas,
@@ -72,7 +78,7 @@ class Detallescuentas:
                                             command=self.mostrar_contras)
         self.boton_mostrar_pwwd.grid(column=2, row=3)
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\copy.png"
+        self.dir = self.dir + self.sep+"icons"+self.sep+"copy.png"
         self.logo = PhotoImage(file = self.dir)
         self.copiar = ttk.Button(
                                             self.ventana_detalles_cuentas,
@@ -133,7 +139,7 @@ class Detallescuentas:
         muestra la contraseña
         """
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\hide.png"
+        self.dir = self.dir +self.sep+"icons"+self.sep+"hide.png"
         self.logo_show = PhotoImage(file = self.dir)
         self.entrada_pwwd.config(show="")
         self.boton_mostrar_pwwd.config(image=self.logo_show,command=self.ocultar_contras)
@@ -143,7 +149,7 @@ class Detallescuentas:
         oculta la contraseña
         """
         self.dir = os.path.abspath(os.getcwd())
-        self.dir = self.dir + "\icons\show.png"
+        self.dir = self.dir + self.sep+"icons"+self.sep+"show.png"
         self.logo_hide = PhotoImage(file = self.dir)
         self.entrada_pwwd.config(show="*")
         self.boton_mostrar_pwwd.config(image=self.logo_hide,command=self.mostrar_contras)
